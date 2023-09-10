@@ -1,114 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>NEARWEEK Calendar demo</title>
-    <!-- <link rel="stylesheet" href="../dist/toastui-calendar.css" /> -->
-    <!-- <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" /> -->
-    <link rel="stylesheet" href="./styles/toastui-calendar.min.css">
-    <link rel="stylesheet" href="./styles/reset.css" />
-    <link rel="stylesheet" href="./styles/app.css" />
-    <link rel="stylesheet" href="./styles/icons.css" />
+
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar/index.global.min.js'></script>
     <style>
-        .navbar {
-            padding: 0;
+        html,
+        body {
+            height: 100%;
+            font-family: Inter, Space Grotesk, Open Sans, sans-serif;
+        }
+
+        #calendar {
+            height: 100%;
         }
     </style>
+    <link rel="stylesheet" href="./styles/83b0e3d8f3a03150.css">
+    <link rel="stylesheet" href="./styles/f98edba19df5696e.css">
+    <script src="./scripts/raw.js"></script>
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                timeZone: 'UTC',
+                initialView: 'dayGridMonth',
+                height: "auto",
+                displayEventTime: true,
+                eventDisplay: "auto",
+                events: raw_data,
+                customButtons: {
+                    header: {
+                        ariaLabel: 'Do the custom action',
+                        text: "COMMUNITY CALENDAR",
+                    },
+                },
+                headerToolbar: {
+                    left: "header",
+                    center: "",
+                    right: "prev,title,next",
+                },
+                eventTimeFormat: { 
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    meridiem: 'short'
+                }
+            });
+
+            calendar.render();
+        })
+    </script>
+
 </head>
 
 <body>
-    <div class="app-container code-html">
-        <header class="header">
-            <nav class="navbar">
-                <button class="button is-rounded today">Today</button>
-                <button class="button is-rounded prev">
-                    <img alt="prev" src="./images/ic-arrow-line-left.png"
-                        srcset="./images/ic-arrow-line-left@2x.png 2x, ./images/ic-arrow-line-left@3x.png 3x" />
-                </button>
-                <button class="button is-rounded next">
-                    <img alt="prev" src="./images/ic-arrow-line-right.png" srcset="
-                ./images/ic-arrow-line-right@2x.png 2x,
-                ./images/ic-arrow-line-right@3x.png 3x
-              " />
-                </button>
-                <span class="navbar--range"></span>
-            </nav>
-        </header>
-        <main id="app"></main>
+    <div class="bg-white">
+        <div class="fc-view-front">
+            <div id='calendar'></div>
+        </div>
     </div>
 
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.3/moment.min.js"></script>
-    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script> -->
-    <script src="./scripts/moment.min.js"></script>
-    <script src="./scripts/toastui-calendar.min.js"></script>
-    <script src="./scripts/raw.js"></script>
-    <script src="./scripts/mock-data.js"></script>
-    <script src="./scripts/utils.js"></script>
-    <script type="text/javascript" class="code-js">
-        var Calendar = window.tui.Calendar;
-
-        var cal = new Calendar('#app', {
-            defaultView: 'month',
-            calendars: MOCK_CALENDARS,
-        });
-    </script>
-    <script type="text/javascript">
-        var todayButton = $('.today');
-        var prevButton = $('.prev');
-        var nextButton = $('.next');
-        var range = $('.navbar--range');
-        async function get_events() {
-            const API_URL = "https://nearweek.com/api/google-calendar/events";
-            const res = await fetch(API_URL, {
-                headers: {
-                    Accept: "*/*",
-                    Authorization:
-                        "Bearer 15699f0723aa9fe9f655b1a94e450552476c08807f67b525b5a3c8011eecc8aee6d45923443620f17815b897858be058cd7bd89ddf23a28aabaecb178e7ebc55d380293beeb51a8ce87b40e1518ce4708e4d51a06b115f27fa64ab5cbee5a3511cec785d7ae6a155ecd05ac8196aadae3e9b8e9401b8df8d8b69904f7364f925",
-                },
-            }).then((res) => res.json()).then((r) => r);
-            console.log(res);
-            return handle_rawdata(res);
-        }
-
-        async function displayEvents() {
-            // var events = generateRandomEvents(
-            //   cal.getViewName(),
-            //   cal.getDateRangeStart(),
-            //   cal.getDateRangeEnd()
-            // );
-            var events = await get_events();
-            console.log(events);
-            cal.clear();
-            cal.createEvents(events);
-        }
-
-        function displayRenderRange() {
-            range.textContent = getNavbarRange(cal.getDateRangeStart(), cal.getDateRangeEnd(), 'month');
-        }
-
-        todayButton.addEventListener('click', function () {
-            cal.today();
-            displayEvents();
-            displayRenderRange();
-        });
-        prevButton.addEventListener('click', function () {
-            cal.prev();
-            displayEvents();
-            displayRenderRange();
-        });
-        nextButton.addEventListener('click', function () {
-            cal.next();
-            displayEvents();
-            displayRenderRange();
-        });
-
-        displayEvents();
-        displayRenderRange();
-    </script>
 </body>
 
 </html>

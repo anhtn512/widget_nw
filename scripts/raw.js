@@ -747,7 +747,8 @@ const raw_data = [
       "end": "2023-08-24T01:00:00+07:00",
       "timeZone": "Asia/Ho_Chi_Minh",
       "createdAt": "2023-08-23T09:16:22.000Z",
-      "createdBy": "calendar@nearweek.com"
+      "createdBy": "calendar@nearweek.com",
+      "allDay": false,
     },
     {
       "date": "2023-08-26",
