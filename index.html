@@ -45,6 +45,20 @@
                     hour: 'numeric',
                     minute: '2-digit',
                     meridiem: 'short'
+                },
+                
+                eventMouseEnter: function (info) {
+                    info.el.style = "background-color: #099ce5; display: inline-flex; z-index: 1000; font-weight: bold; color: white; padding-left: 10px; padding-right: 10px";
+                },
+                eventMouseLeave: function (info) {
+                    info.el.style = "";
+                },
+                eventClick: function (info) {
+                    info.jsEvent.preventDefault();
+                    console.log(info.event.extendedProps.location);
+                    if (info.event.extendedProps.location) {
+                        window.open(info.event.extendedProps.location);
+                    }
                 }
             });
 
